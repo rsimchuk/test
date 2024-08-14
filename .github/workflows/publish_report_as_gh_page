@@ -1,7 +1,7 @@
 name: Publist Report As GH Page
 
-on: [push]
-
+on:
+  workflow_dispatch:
 
 jobs:
   make_it:
