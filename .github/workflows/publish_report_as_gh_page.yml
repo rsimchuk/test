@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
 
 jobs:
+  permissions:
+    id-token: write
+    pages: write  
   prepare:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +27,7 @@ jobs:
           pytest tests/ --junitxml=report/report.xml
       - uses: actions/upload-artifact@master
         with:
-          name: page
+          name: test_report
           path: report
           if-no-files-found: error
 
@@ -37,7 +40,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@master
         with:
-          name: page
+          name: test_report
           path: .
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
