@@ -9,22 +9,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@4
+
       - name: Setup Python
         uses: actions/setup-python@5
         with:
           python-version: "3.11"
+
       - name: Install deps
         run: |
           python -m pip install -r req.txt
           pytest tests/ --junitxml=report.xml
+
       - name: Setup Pages
         uses: actions/configure-pages@v2
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload the coverage directory from the repository
           path: './report.xml'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-
