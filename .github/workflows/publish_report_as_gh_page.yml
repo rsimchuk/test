@@ -28,12 +28,12 @@ jobs:
         continue-on-error: true
         run: |
           pytest tests/ --junitxml=report/report.xml
-#      - uses: actions/upload-artifact@master
-#        with:
-#          name: test_report
-#          path: report
-#          if-no-files-found: error
-#
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test_report
+          path: report
+          if-no-files-found: error
+
 #  test_and_deploy_page:
 #    runs-on: ubuntu-latest
 #    needs: prepare
@@ -50,14 +50,15 @@ jobs:
 #          path: .
 #      - id: deployment
 #        uses: actions/deploy-pages@main
-      - name: Setup Pages
-        uses: actions/configure-pages@v2
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          name: test_report
-          path: report
-          if-no-files-found: error
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+
+#      - name: Setup Pages
+#        uses: actions/configure-pages@v2
+#      - name: Upload artifact
+#        uses: actions/upload-pages-artifact@v1
+#        with:
+#          name: test_report
+#          path: report
+#          if-no-files-found: error
+#      - name: Deploy to GitHub Pages
+#        id: deployment
+#        uses: actions/deploy-pages@v1
