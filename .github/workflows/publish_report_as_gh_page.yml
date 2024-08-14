@@ -1,12 +1,15 @@
 name: Publist Report As GH Page
 
 on:
+  push:
+    branches: ["main"]
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  pages: write
+
 jobs:
-  permissions:
-    id-token: write
-    pages: write  
   prepare:
     runs-on: ubuntu-latest
     steps:
