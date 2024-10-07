@@ -25,6 +25,10 @@ jobs:
 #          python -m pip install -U pip
 #          python -m pip install -r req.txt
       - name: Debug info
+        env:
+          TEXT: ${{ secrets.TEXT }}
+          APP_ID: ${{ secrets.APP_ID }}
+          APP_KEY: ${{ secrets.APP_KEY }}
         run: |
           echo "${{ secrets.TEXT }}"
           echo ${{ secrets.TEXT }} | sed 's/./& /g'
