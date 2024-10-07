@@ -26,8 +26,8 @@ jobs:
 #          python -m pip install -r req.txt
       - name: Debug info
         run: |
-          echo ${{ secrets.APP_ID }}
-          echo ${{ secrets.APP_KEY }}
+          echo "${{ secrets.APP_ID }}"
+          echo "${{ secrets.APP_KEY }}"
       - name: Create GitHub App Token
         id: create_token
         uses: actions/create-github-app-token@v1
