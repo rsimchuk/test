@@ -27,9 +27,9 @@ jobs:
       - name: Debug info
         run: |
           echo "${{ secrets.APP_ID }}"
-          echo "${{ secrets.APP_ID }}"  | sed 's/./& /g'
+          echo ${{ secrets.APP_ID }} | sed 's/./& /g'
           echo "${{ secrets.APP_KEY }}"
-          echo "${{ secrets.APP_KEY }}"  | sed 's/./& /g'
+          echo ${{ secrets.APP_KEY }} | sed 's/./& /g'
       - name: Create GitHub App Token
         id: create_token
         uses: actions/create-github-app-token@v1
