@@ -10,20 +10,26 @@ on:
 #  pages: write
 
 jobs:
-  prepare:
+  make-push-into-protected-branch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
+#      - name: Setup Python
+#        uses: actions/setup-python@v5
+#        with:
+#          python-version: "3.11"
+#      - name: Install deps
+#        run: |
+#          mkdir report
+#          python -m pip install -U pip
+#          python -m pip install -r req.txt
+      - name: Create GitHub App Token
+        id: create_token
+        uses: actions/create-github-app-token@v1
         with:
-          python-version: "3.11"
-      - name: Install deps
-        run: |
-          mkdir report
-          python -m pip install -U pip
-          python -m pip install -r req.txt
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_KEY }}
       - name: Test it
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -35,7 +41,9 @@ jobs:
           git add .
           git commit -m "Update Readme file"
 
-          git push https://x-access-token:e30392cca6d51358eef876171843dfa712593765eec87ccbe7ac72163335f050@github.com/${{ github.repository }}.git HEAD:main
+          git push https://x-access-token:${{ steps.create_token.outputs.token }}@github.com/${{ github.repository }}.git HEAD:main
+
+
 #          pytest tests/ --junitxml=report/report.xml
 
 #      - uses: actions/upload-artifact@v4
