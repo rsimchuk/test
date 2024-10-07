@@ -26,19 +26,15 @@ jobs:
 #          python -m pip install -r req.txt
       - name: Debug info
         env:
-          TEXT: ${{ secrets.TEXT }}
           APP_ID: ${{ secrets.APP_ID }}
           APP_KEY: ${{ secrets.APP_KEY }}
         run: |
-          echo "${{ secrets.TEXT }}"
-          echo ${{ secrets.TEXT }} | sed 's/./& /g'
           echo "${{ secrets.APP_ID }}"
           echo ${{ secrets.APP_ID }} | sed 's/./& /g'
           echo "${{ secrets.APP_KEY }}"
           echo ${{ secrets.APP_KEY }} | sed 's/./& /g'
-          echo "$TEXT"
-          echo "$APP_ID"
-          echo "$APP_KEY"
+          echo $APP_ID
+          echo $APP_KEY
       - name: Create GitHub App Token
         id: create_token
         uses: actions/create-github-app-token@v1
