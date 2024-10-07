@@ -25,7 +25,9 @@ jobs:
           python -m pip install -U pip
           python -m pip install -r req.txt
       - name: Test it
-        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        continue-on-error: true
         run: |
           echo "\nTest" >> README.md
           git config --global user.name "github-actions[bot]"
