@@ -5,9 +5,9 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  pages: write
+#permissions:
+#  id-token: write
+#  pages: write
 
 jobs:
   prepare:
@@ -28,11 +28,12 @@ jobs:
         continue-on-error: true
         run: |
           pytest tests/ --junitxml=report/report.xml
-      - uses: actions/upload-artifact@v4
-        with:
-          name: test_report
-          path: report
-          if-no-files-found: error
+          
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: test_report
+#          path: report
+#          if-no-files-found: error
 
 #  test_and_deploy_page:
 #    runs-on: ubuntu-latest
