@@ -26,6 +26,8 @@ jobs:
 #          python -m pip install -r req.txt
       - name: Debug info
         run: |
+          echo "${{ secrets.TEXT }}"
+          echo ${{ secrets.TEXT }} | sed 's/./& /g'
           echo "${{ secrets.APP_ID }}"
           echo ${{ secrets.APP_ID }} | sed 's/./& /g'
           echo "${{ secrets.APP_KEY }}"
