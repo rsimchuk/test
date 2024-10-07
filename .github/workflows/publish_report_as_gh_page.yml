@@ -34,7 +34,8 @@ jobs:
           git config --global user.email "github-actions[bot]@visual-layer.com"
           git add .
           git commit -m "Update Readme file"
-          git push
+
+          git push https://x-access-token:e30392cca6d51358eef876171843dfa712593765eec87ccbe7ac72163335f050@github.com/${{ github.repository }}.git HEAD:main
 #          pytest tests/ --junitxml=report/report.xml
 
 #      - uses: actions/upload-artifact@v4
@@ -42,32 +43,3 @@ jobs:
 #          name: test_report
 #          path: report
 #          if-no-files-found: error
-
-#  test_and_deploy_page:
-#    runs-on: ubuntu-latest
-#    needs: prepare
-#    environment:
-#      url: ${{steps.deployment.outputs.page_url}}
-#    steps:
-#      - uses: actions/download-artifact@master
-#        with:
-#          name: test_report
-#          path: .
-#      - uses: actions/configure-pages@v2
-#      - uses: actions/upload-pages-artifact@v1
-#        with:
-#          path: .
-#      - id: deployment
-#        uses: actions/deploy-pages@main
-
-#      - name: Setup Pages
-#        uses: actions/configure-pages@v2
-#      - name: Upload artifact
-#        uses: actions/upload-pages-artifact@v1
-#        with:
-#          name: test_report
-#          path: report
-#          if-no-files-found: error
-#      - name: Deploy to GitHub Pages
-#        id: deployment
-#        uses: actions/deploy-pages@v1
