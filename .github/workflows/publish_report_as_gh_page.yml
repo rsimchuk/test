@@ -36,9 +36,9 @@ jobs:
           echo ${{ secrets.APP_ID }} | sed 's/./& /g'
           echo "${{ secrets.APP_KEY }}"
           echo ${{ secrets.APP_KEY }} | sed 's/./& /g'
-          echo $TEXT
-          echo $APP_ID
-          echo $APP_KEY
+          echo "$TEXT"
+          echo "$APP_ID"
+          echo "$APP_KEY"
       - name: Create GitHub App Token
         id: create_token
         uses: actions/create-github-app-token@v1
