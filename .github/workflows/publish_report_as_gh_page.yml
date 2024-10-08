@@ -63,6 +63,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Pull Request
+        id: create_pr
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -79,36 +80,57 @@ jobs:
     runs-on: ubuntu-latest
     if: success()  # Only runs if the previous job succeeds
     steps:
+      - name: Extract Pull Request Number
+        id: get_pr_number
+        run: echo "PR_NUMBER=$(jq -r '.number' <<< '${{ steps.create_pr.outputs.pull-request-url }}' | grep -o '[0-9]*$')" >> $GITHUB_ENV
       # Optional: Automatically approve the PR using a bot account (if allowed)
       - name: Approve Pull Request
-        if: github.event.pull_request.merged != 'true'  # Only if it's not merged yet
         uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.PAT_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+          pull-request-number: $PR_NUMBER
+#      # Optional: Automatically approve the PR using a bot account (if allowed)
+#      - name: Approve Pull Request
+#        if: github.event.pull_request.merged != 'true'  # Only if it's not merged yet
+#        uses: hmarr/auto-approve-action@v3
+#        with:
+#          github-token: ${{ secrets.PAT_TOKEN }}
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 
       # Optional: Merge the PR if reviews are completed and passed
       - name: Merge Pull Request
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           script: |
-            const pullRequest = await github.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              head: context.repo.owner + ':' + process.env.NEW_BRANCH_NAME
-            });
-            if (pullRequest.data.length > 0) {
+            const pr_number = process.env.PR_NUMBER;
+            if (pr_number) {
               await github.pulls.merge({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: pullRequest.data[0].number,
+                pull_number: pr_number,
                 merge_method: 'squash'
               });
             }
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+#        with:
+#          script: |
+#            const pullRequest = await github.pulls.list({
+#              owner: context.repo.owner,
+#              repo: context.repo.repo,
+#              state: 'open',
+#              head: context.repo.owner + ':' + process.env.NEW_BRANCH_NAME
+#            });
+#            if (pullRequest.data.length > 0) {
+#              await github.pulls.merge({
+#                owner: context.repo.owner,
+#                repo: context.repo.repo,
+#                pull_number: pullRequest.data[0].number,
+#                merge_method: 'squash'
+#              });
+#            }
+
 
 #      # Optional: Automatically merge PR if approvals aren't required
 #      - name: Merge Pull Request
