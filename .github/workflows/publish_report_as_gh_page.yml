@@ -54,6 +54,7 @@ jobs:
       - name: Create new branch
         run: |
           NEW_BRANCH_NAME="branch-$(date +'%Y%m%d%H%M%S')" # Create a unique branch name
+          echo "$NEW_BRANCH_NAME"
           git checkout -b $NEW_BRANCH_NAME
           echo "\nTest" >> README.md
           git add .
@@ -66,7 +67,7 @@ jobs:
         id: create_pr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           commit-message: "Automated changes"
           branch: $NEW_BRANCH_NAME
           title: "Automated PR from GitHub Actions"
