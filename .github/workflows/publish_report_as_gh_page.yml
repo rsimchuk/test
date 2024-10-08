@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  make-push-into-protected-branch:
+  create-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
