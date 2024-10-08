@@ -38,6 +38,5 @@ jobs:
           echo "\nTest" >> README.md
           git add .
           git commit -m "Update Readme file"
-          git push origin main --force
-
-#          git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git HEAD:main
+#          git push origin main --force
+          git push https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git HEAD:main --force
