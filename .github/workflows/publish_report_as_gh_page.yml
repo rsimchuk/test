@@ -36,6 +36,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
 #          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
+          git config --global user.name 'Bot'
+          git config --global user.email 'bot@users.noreply.github.com'
           echo "\nTest" >> README.md
           git add .
           git commit -m "Update Readme file"
