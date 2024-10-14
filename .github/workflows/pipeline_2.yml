@@ -1,11 +1,6 @@
 name: Pipeline 2
 
 on:
-  workflow_run:
-    workflows: ["Pipeline 1"]
-    types:
-      - completed
-
   workflow_dispatch:
 
 jobs:
@@ -13,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify success
-        run: echo "Pipeline 1 completed successfully! Running tasks in Pipeline 2."
+        run: echo "Running tasks in Pipeline 2."
