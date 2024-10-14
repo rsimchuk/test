@@ -1,4 +1,4 @@
-name: Pipeline 2
+name: Pipeline 3
 
 on:
   workflow_run:
@@ -10,14 +10,14 @@ jobs:
   check_result:
     runs-on: ubuntu-latest
     steps:
-      - name: Check result of Pipeline #2
+      - name: Check result of Pipeline 2
         run: |
           if [ "${{ github.event.workflow_run.conclusion }}" != "success" ]; then
             echo "Pipeline 2 failed."
             exit 1
           fi
 
-      - name: Trigger Pipeline #1 if successful
+      - name: Trigger Pipeline 1 if successful
         run: |
           echo "Triggering Pipeline 1..."
           gh workflow run 'Pipeline 1'
