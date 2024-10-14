@@ -6,6 +6,8 @@ on:
     types:
       - completed
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   check_result:
     runs-on: ubuntu-latest
