@@ -8,4 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify success
-        run: echo "Running tasks in Pipeline 2."
+        run: | 
+          echo "Running tasks in Pipeline 2."
+          exit 1
