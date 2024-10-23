@@ -1,7 +1,14 @@
-name: Pipeline 2
+name: Pipeline_2
 
 on:
   workflow_dispatch:
+  pull_request_target:
+    types: [ opened, reopened ]
+    paths-ignore:
+      - '.github/workflows/**'
+  workflow_run:
+    workflows: [ Pipeline_1 ]
+    types: [ completed ]
 
 jobs:
   notify:
@@ -10,4 +17,4 @@ jobs:
       - name: Notify success
         run: | 
           echo "Running tasks in Pipeline 2."
-          exit 1
+#          exit 1
