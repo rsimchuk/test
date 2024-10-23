@@ -26,4 +26,4 @@ jobs:
       - name: Trigger Pipeline 1 if successful
         run: |
           echo "Triggering Pipeline 1..."
-          gh workflow run 'Pipeline 1'
+          gh workflow run 'Pipeline_1'
