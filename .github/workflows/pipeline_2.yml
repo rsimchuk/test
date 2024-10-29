@@ -28,6 +28,11 @@ jobs:
               pull_number: context.payload.pull_request.number,
             });
             return { merge_commit_sha: pullRequest.merge_commit_sha };
+      - name: Show PR data
+        if: github.event_name == 'pull_request_target'
+        run: |
+          echo "PR sha is:"
+          echo ${{ steps.pr.outputs.merge_commit_sha }}
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
