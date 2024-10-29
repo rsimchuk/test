@@ -14,7 +14,22 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Notify success
-        run: | 
-          echo "Running tasks in Pipeline 2."
-#          exit 1
+      - name: Get Pull Request Info
+        id: pr
+        if: github.event_name == 'pull_request_target'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: pullRequest } = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            return { merge_commit_sha: pullRequest.merge_commit_sha };
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{
+            github.event_name == 'workflow_dispatch' && github.event.inputs.target_branch
+            || github.event_name == 'workflow_run' && github.event.workflow_run.head_branch
+            || steps.pr.outputs.merge_commit_sha
+          }}
