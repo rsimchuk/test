@@ -17,6 +17,7 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+<<<<<<< Updated upstream
       - name: Get Pull Request Info
         id: pr
         if: github.event_name == 'pull_request_target'
@@ -29,21 +30,38 @@ jobs:
             } else {
               throw new Error('No pull request data found');
             }
+=======
+#      - name: Get Pull Request Info
+#        id: pr
+#        if: github.event_name == 'pull_request_target'
+#        uses: actions/github-script@v6
+#        with:
+#          script: |
+>>>>>>> Stashed changes
 #            const { data: pullRequest } = await github.rest.pulls.get({
 #              ...context.repo,
 #              pull_number: context.payload.pull_request.number,
 #            });
 #            return { merge_commit_sha: pullRequest.merge_commit_sha };
+<<<<<<< Updated upstream
       - name: Show PR data
         if: github.event_name == 'pull_request_target'
         run: |
           echo "PR sha is:"
           echo ${{ steps.pr.outputs.merge_commit_sha }}
+=======
+#      - name: Show PR sha
+#        if: github.event_name == 'pull_request_target'
+#        run: |
+#          echo ${{ steps.pr.outputs }}
+>>>>>>> Stashed changes
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           ref: ${{
             github.event_name == 'workflow_dispatch' && github.event.inputs.target_branch
             || github.event_name == 'workflow_run' && github.event.workflow_run.head_branch
-            || steps.pr.outputs.merge_commit_sha
+            || github.event_name == 'pull_request_target' && github.event.pull_request.head.sha
             }}
+#            || steps.pr.outputs.merge_commit_sha
+#            }}
