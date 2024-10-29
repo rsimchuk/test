@@ -23,11 +23,17 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { data: pullRequest } = await github.rest.pulls.get({
-              ...context.repo,
-              pull_number: context.payload.pull_request.number,
-            });
-            return { merge_commit_sha: pullRequest.merge_commit_sha };
+            const pullRequest = context.payload.pull_request;
+            if (pullRequest) {
+              return { merge_commit_sha: pullRequest.merge_commit_sha };
+            } else {
+              throw new Error('No pull request data found');
+            }
+#            const { data: pullRequest } = await github.rest.pulls.get({
+#              ...context.repo,
+#              pull_number: context.payload.pull_request.number,
+#            });
+#            return { merge_commit_sha: pullRequest.merge_commit_sha };
       - name: Show PR data
         if: github.event_name == 'pull_request_target'
         run: |
