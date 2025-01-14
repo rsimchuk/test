@@ -20,13 +20,7 @@ jobs:
         run: |
           echo "Random msg!!!"
 
-<<<<<<< Updated upstream
-      - name: Trigger Pipeline 1 if successful
-        run: |
-          echo "Triggering Pipeline 1..."
-          gh workflow run 'Pipeline 1'
-=======
   exec_new:
     needs: check_result
     uses: ./.github/workflows/pipeline_1.yml
->>>>>>> Stashed changes
+
