@@ -16,14 +16,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check result of Pipeline 2
+      - name: Random msg
         run: |
-          if [ "${{ github.event.workflow_run.conclusion }}" != "success" ]; then
-            echo "Pipeline 2 failed."
-            exit 1
-          fi
+          echo "Random msg!!!"
 
+<<<<<<< Updated upstream
       - name: Trigger Pipeline 1 if successful
         run: |
           echo "Triggering Pipeline 1..."
           gh workflow run 'Pipeline 1'
+=======
+  exec_new:
+    needs: check_result
+    uses: ./.github/workflows/pipeline_1.yml
+>>>>>>> Stashed changes

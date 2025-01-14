@@ -9,9 +9,9 @@ on:
     types: [ opened, reopened ]
     paths-ignore:
       - '.github/workflows/**'
-  workflow_run:
-    workflows: [ Pipeline_1 ]
-    types: [ completed ]
+#  workflow_run:
+#    workflows: [ Pipeline_1 ]
+#    types: [ completed ]
 
 jobs:
   notify:
