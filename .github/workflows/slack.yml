@@ -9,9 +9,6 @@ on:
       slack_url:
         required: true
         type: string
-      repo:
-        required: true
-        type: string
       job_id:
         required: true
         type: string
@@ -22,6 +19,6 @@ jobs:
     steps:
       - name: Send Slack Notification
         run: |
-          echo "https://github.com/${{ inputs.repo }}/actions/runs/${{ inputs.job_id }}"
+          echo "https://github.com/${{ github.repository }}/actions/runs/${{ inputs.job_id }}"
           echo "${{ inputs.job_status }}"
           echo "${{ inputs.slack_url }}"

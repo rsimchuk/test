@@ -14,10 +14,13 @@ jobs:
       - name: Run some tasks
         run: echo "Running tasks in Pipeline 1."
 
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Notify about it
         uses: ./.github/workflows/slack.yml
         with:
           job_status: ${{ job.status }}
           slack_url: "slack.com"
-          repo: ${{ github.repository }}
           job_id: ${{ github.run_id }}
