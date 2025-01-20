@@ -10,11 +10,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: ${{
-            github.event_name == 'workflow_dispatch' && github.event.inputs.tagbranch
-            || github.event_name == 'workflow_run' && github.event.workflow_run.head_branch
-            }}
 
       - name: Run some tasks
         run: echo "Running tasks in Pipeline 1."
+
+      - name: Notify about it
+        uses: ./.github/workflows/slack.yml
+        with:
+          job_status: ${{ job.status }}
+          slack_url: "slack.com"

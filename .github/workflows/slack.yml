@@ -1,0 +1,21 @@
+name: Slack Notification
+
+on:
+  workflow_call:
+    inputs:
+      job_status:
+        required: true
+        type: string
+      slack_url:
+        required: true
+        type: string
+
+jobs:
+  notify_slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack Notification
+        run: |
+          echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "${{ inputs.job_status }}"
+          echo "${{ inputs.slack_url }}"
