@@ -16,9 +16,8 @@ jobs:
 
   notify:
     needs: build
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/slack.yml
     with:
-      job_status: ${{ job.status }}
+      job_status: ${{ github.job }}
       slack_url: "slack.com"
       job_id: ${{ github.run_id }}
