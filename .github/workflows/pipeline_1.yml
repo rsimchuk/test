@@ -19,3 +19,5 @@ jobs:
         with:
           job_status: ${{ job.status }}
           slack_url: "slack.com"
+          repo: ${{ github.repository }}
+          job_id: ${{ github.run_id }}
