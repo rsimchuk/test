@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.build_type == 'build1' }}
     outputs:
-      status: ${{ steps.set_status.outputs.status }}
+      status: ${{ steps.pytest-results.outcome }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,11 +38,6 @@ jobs:
           summary: true
           fail-on-empty: true
           title: Test results
-      - name: Job Result
-        id: set_status
-        run: |
-          echo "status=${{ steps.pytest-results.outcome }}" >> $GITHUB_OUTPUT
-          
 
   build2:
     runs-on: ubuntu-latest
