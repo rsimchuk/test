@@ -25,7 +25,7 @@ jobs:
       - name: Job Result
         id: set_status
         run: |
-          echo ::set-output name=status::$?
+          echo "status=$?" >> $GITHUB_OUTPUT
           
 
   build2:
@@ -43,7 +43,7 @@ jobs:
       - name: Job Result
         id: set_status
         run: |
-          echo ::set-output name=status::$?
+          echo "status=$?" >> $GITHUB_OUTPUT
 
   notify:
     needs: [build1, build2]
