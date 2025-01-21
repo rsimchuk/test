@@ -12,6 +12,7 @@ on:
 jobs:
   build1:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.build_type == 'build1' }}
     outputs:
       job_status: ${{ steps.set_status.outputs.status }}
     steps:
@@ -20,9 +21,16 @@ jobs:
 
       - name: Run some tasks
         run: echo "Running tasks in Pipeline 1."
+
+      - name: Job Result
+        id: set_status
+        run: |
+          echo ::set-output name=status::$?
+          
 
   build2:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.build_type == 'build2' }}
     outputs:
       job_status: ${{ steps.set_status.outputs.status }}
     steps:
@@ -31,11 +39,16 @@ jobs:
 
       - name: Run some tasks
         run: echo "Running tasks in Pipeline 1."
+
+      - name: Job Result
+        id: set_status
+        run: |
+          echo ::set-output name=status::$?
 
   notify:
     needs: [build1, build2]
     uses: ./.github/workflows/slack.yml
     with:
-      job_status: ${{ needs.build1.outputs.job_status || needs.build2.outputs.job_status }}
+      job_status: ${{ needs.build1.outputs.status || needs.build2.outputs.status }}
       slack_url: "slack.com"
       job_id: ${{ github.run_id }}
