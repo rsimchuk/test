@@ -47,6 +47,7 @@ jobs:
 
   notify:
     needs: [build1, build2]
+    if: always()
     uses: ./.github/workflows/slack.yml
     with:
       job_status: ${{ needs.build1.outputs.status || needs.build2.outputs.status }}
