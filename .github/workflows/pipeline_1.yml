@@ -13,7 +13,7 @@ jobs:
   build1:
     runs-on: ubuntu-latest
     outputs:
-      job_status: ${{ ${{ steps.set_status.outputs.status }} }}
+      job_status: ${{ steps.set_status.outputs.status }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
   build2:
     runs-on: ubuntu-latest
     outputs:
-      job_status: ${{ ${{ steps.set_status.outputs.status }} }}
+      job_status: ${{ steps.set_status.outputs.status }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -34,7 +34,6 @@ jobs:
 
   notify:
     needs: [build1, build2]
-
     uses: ./.github/workflows/slack.yml
     with:
       job_status: ${{ needs.build1.outputs.job_status || needs.build2.outputs.job_status }}
