@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.build_type == 'build1' }}
     outputs:
-      job_status: ${{ steps.set_status.outputs.status }}
+      status: ${{ steps.set_status.outputs.status }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.build_type == 'build2' }}
     outputs:
-      job_status: ${{ steps.set_status.outputs.status }}
+      status: ${{ steps.set_status.outputs.status }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
