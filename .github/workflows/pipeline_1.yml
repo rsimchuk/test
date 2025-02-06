@@ -61,7 +61,6 @@ jobs:
     if: always()
     uses: ./.github/workflows/slack.yml
     with:
-#      job_status: ${{ needs.build1.outputs.status || needs.build2.outputs.status }}
-      job_status: ${{ needs.build1.result || needs.build2.result }}
+      job_status: ${{ needs.build1.result != 'skipped' && needs.build1.result || needs.build2.result != 'skipped' && needs.build2.result }}
       slack_url: "slack.com"
       job_id: ${{ github.run_id }}
