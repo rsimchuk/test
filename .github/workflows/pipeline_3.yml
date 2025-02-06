@@ -13,6 +13,6 @@ jobs:
       - name: Random msg
         run: |
           echo "### Locust Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "| Request Type | Requests | Failures | Median Response Time |" >> $GITHUB_STEP_SUMMARY
-          echo "|-------------|----------|----------|----------------------|" >> $GITHUB_STEP_SUMMARY
-          awk -F, 'NR>1 {print "| " $2 " | " $3 " | " $4 " | " $7 " |"}' small_stats.csv >> $GITHUB_STEP_SUMMARY
+          echo "| Request Type | Requests | Failures | Median Response Time | Content Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------------|----------|----------|----------------------|-------------|" >> $GITHUB_STEP_SUMMARY
+          awk -F, 'NR>1 {print "| " $2 " | " $3 " | " $4 " | " $5 " | " $9 " |"}' small_stats.csv >> $GITHUB_STEP_SUMMARY
