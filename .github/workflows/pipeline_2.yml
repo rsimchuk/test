@@ -3,25 +3,41 @@ name: Pipeline_2
 on:
   workflow_dispatch:
     inputs:
-      target_branch:
+      releaseversion:
+        description: 'Set the release version for the services (latest: 2.25.4)'
         required: true
-  pull_request_target:
-    types: [ opened, reopened ]
-    paths-ignore:
-      - '.github/workflows/**'
-#  workflow_run:
-#    workflows: [ Pipeline_1 ]
-#    types: [ completed ]
+      tagbranch:
+        description: 'Optional! Set the branch for e2e tests to run (otherwise "main" is used)'
+        required: false
+        default: 'main'
+  workflow_run:
+    workflows: [ DEPLOY-STAGING ]
+    types: [ completed ]
+  workflow_call:
+    inputs:
+      tagbranch:
+        required: true
+        type: string
+      releaseversion:
+        required: true
+        type: string
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWD:
+        required: true
+
+defaults:
+  run:
+    # GitHub Actions run without a TTY device. This is a workaround to get one,
+    # based on https://github.com/actions/runner/issues/241#issuecomment-842566950.
+    shell: 'script -q -e -c "bash --noprofile --norc -eo pipefail {0}"'
 
 jobs:
-  notify:
+  pipeline2:
+    if: ${{ github.event.workflow.name == 'bla-bla-bla' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          ref: ${{
-            github.event_name == 'workflow_dispatch' && github.event.inputs.target_branch
-            || github.event_name == 'workflow_run' && github.event.workflow_run.head_branch
-            || github.event_name == 'pull_request_target' && github.event.pull_request.head.sha
-            }}
+      - name: Echo deploy
+        run: |
+          echo "Pipeline 2"
