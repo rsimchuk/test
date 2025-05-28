@@ -1,6 +1,5 @@
 name: Pipeline_1
 
-o
 on:
   workflow_dispatch:
     inputs:
