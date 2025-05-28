@@ -6,6 +6,7 @@ on:
       tagbranch:
         description: 'tag/branch to build from. Note that due current limitation the tag/branch MUST be the same for BE & FE repos'
         required: true
+        default: 'main'
       services:
         description: 'services to build'
         required: false
@@ -17,6 +18,7 @@ on:
       releaseversion:
         description: 'release version such as 2.15.5'
         required: true
+        default: '2.15.5'
       devBuild:
         type: boolean
         description: 'dev build (dev build is pushed to dev repos)'
@@ -34,7 +36,7 @@ jobs:
     needs: deploy
     uses: ./.github/workflows/pipeline_2.yml
     # if: ${{ github.event.inputs.services == 'cd fe be pg pg16 pl-gpu pl-cpu healthcheck installer' && !github.event.inputs.devBuild }}
-    if: ${{ !inputs.devBuild }}
+    if: ${{ inputs.services == 'cd fe be pg pg16 pl-gpu pl-cpu healthcheck installer' && !inputs.devBuild }}
     with:
       tagbranch: ${{ github.event.inputs.tagbranch }}
       releaseversion: ${{ github.event.inputs.releaseversion }}
