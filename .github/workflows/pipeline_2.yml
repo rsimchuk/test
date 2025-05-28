@@ -11,7 +11,7 @@ on:
         required: false
         default: 'main'
   workflow_run:
-    workflows: [ DEPLOY-STAGING, Pipeline_1 ]
+    workflows: [ DEPLOY-STAGING ]
     types: [ completed ]
   workflow_call:
     inputs:
@@ -21,11 +21,11 @@ on:
       releaseversion:
         required: true
         type: string
-    secrets:
-      DOCKERHUB_USERNAME:
-        required: true
-      DOCKERHUB_PASSWD:
-        required: true
+    # secrets:
+    #   DOCKERHUB_USERNAME:
+    #     required: true
+    #   DOCKERHUB_PASSWD:
+    #     required: true
 
 defaults:
   run:
@@ -35,7 +35,7 @@ defaults:
 
 jobs:
   pipeline2:
-    if: ${{ github.event.workflow.name == 'bla-bla-bla' }}
+    if: ${{ github.event.workflow.name != 'bla-bla-bla' }}
     runs-on: ubuntu-latest
     steps:
       - name: Echo deploy
