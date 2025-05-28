@@ -34,7 +34,7 @@ jobs:
     needs: deploy
     uses: ./.github/workflows/pipeline_2.yml
     # if: ${{ github.event.inputs.services == 'cd fe be pg pg16 pl-gpu pl-cpu healthcheck installer' && !github.event.inputs.devBuild }}
-    if: ${{ github.event.inputs.services == 'cd fe be pg pg16 pl-gpu pl-cpu healthcheck installer' && github.event.inputs.devBuild}}
+    if: ${{ !github.event.inputs.devBuild }}
     with:
       tagbranch: ${{ github.event.inputs.tagbranch }}
       releaseversion: ${{ github.event.inputs.releaseversion }}
