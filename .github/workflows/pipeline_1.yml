@@ -38,6 +38,6 @@ jobs:
     with:
       tagbranch: ${{ github.event.inputs.tagbranch }}
       releaseversion: ${{ github.event.inputs.releaseversion }}
-    # secrets:
-    #   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-    #   DOCKERHUB_PASSWD: ${{ secrets.DOCKERHUB_PASSWD }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWD: ${{ secrets.DOCKERHUB_PASSWD }}

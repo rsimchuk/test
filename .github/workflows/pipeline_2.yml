@@ -21,11 +21,11 @@ on:
       releaseversion:
         required: true
         type: string
-    # secrets:
-    #   DOCKERHUB_USERNAME:
-    #     required: true
-    #   DOCKERHUB_PASSWD:
-    #     required: true
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWD:
+        required: true
 
 defaults:
   run:
