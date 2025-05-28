@@ -11,7 +11,7 @@ on:
         required: false
         default: 'main'
   workflow_run:
-    workflows: [ DEPLOY-STAGING ]
+    workflows: [ DEPLOY-STAGING, Pipeline_1 ]
     types: [ completed ]
   workflow_call:
     inputs:
